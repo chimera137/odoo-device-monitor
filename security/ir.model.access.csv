@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_device_monitor_user,device.monitor.user,device_monitor.model_device_monitor,mrp.group_mrp_user,1,0,0,0
+access_device_monitor_manager,device.monitor.manager,device_monitor.model_device_monitor,mrp.group_mrp_manager,1,1,1,1
+access_device_monitor_mapping_user,device.monitor.mapping.user,device_monitor.model_device_monitor_mapping,mrp.group_mrp_user,1,0,0,0
+access_device_monitor_mapping_manager,device.monitor.mapping.manager,device_monitor.model_device_monitor_mapping,mrp.group_mrp_manager,1,1,1,1

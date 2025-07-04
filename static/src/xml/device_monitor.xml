@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="device_monitor.form">
+        <div class="o_device_monitor_form">
+            <div class="o_device_header">
+                <h2><t t-esc="record.name.value"/></h2>
+                <div class="o_device_actions">
+                    <button class="btn btn-primary o_device_refresh">
+                        <i class="fa fa-refresh"/> Refresh
+                    </button>
+                    <button class="btn" t-att-class="record.is_polling.value ? 'btn-danger' : 'btn-success'">
+                        <i class="fa" t-att-class="record.is_polling.value ? 'fa-stop' : 'fa-play'"/>
+                        <t t-esc="record.is_polling.value ? 'Stop Polling' : 'Start Polling'"/>
+                    </button>
+                </div>
+            </div>
+
+            <div class="o_device_info">
+                <div class="o_device_status_container">
+                    <span>Status: </span>
+                    <span class="o_device_status" t-att-class="'text-' + (record.status.value === 'connected' ? 'success' : record.status.value === 'error' ? 'danger' : 'warning')"
+                          t-esc="record.status.value"/>
+                </div>
+                <div class="o_device_type">
+                    <span>Type: </span>
+                    <span t-esc="record.device_type.value"/>
+                </div>
+                <div class="o_device_id">
+                    <span>Device ID: </span>
+                    <span t-esc="record.device_id.value"/>
+                </div>
+            </div>
+
+            <div class="o_device_values_container">
+                <h3>Current Values</h3>
+                <div class="o_device_values"/>
+            </div>
+
+            <div class="o_device_alerts_container">
+                <h3>Alerts</h3>
+                <div class="o_device_alerts"/>
+            </div>
+
+            <div class="o_device_settings">
+                <h3>Settings</h3>
+                <div class="o_device_thresholds">
+                    <h4>Alert Thresholds</h4>
+                    <div class="o_device_thresholds_list"/>
+                </div>
+                <div class="o_device_aliases">
+                    <h4>Register Aliases</h4>
+                    <div class="o_device_aliases_list"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates> 

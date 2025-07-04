@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_device_monitor_root"
+              name="Device Monitor"
+              web_icon="device_monitor,static/description/icon.png"
+              sequence="100"/>
+
+    <!-- Devices Menu -->
+    <menuitem id="menu_device_monitor"
+              name="Devices"
+              action="action_device_monitor"
+              parent="menu_device_monitor_root"
+              sequence="10"/>
+
+    <!-- Add Device Monitor to Inventory App -->
+    <menuitem id="menu_device_monitor_in_inventory"
+              name="Device Monitor"
+              action="action_device_monitor"
+              parent="stock.menu_stock_root"
+              sequence="100"/>
+</odoo> 

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View -->
+    <record id="view_device_monitor_list" model="ir.ui.view">
+        <field name="name">device.monitor.list</field>
+        <field name="model">device.monitor</field>
+        <field name="arch" type="xml">
+            <list string="Device Monitor">
+                <field name="name"/>
+                <field name="device_id"/>
+                <field name="device_type"/>
+                <field name="state"/>
+                <field name="last_update"/>
+                <field name="last_value"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_device_monitor_form" model="ir.ui.view">
+        <field name="name">device.monitor.form</field>
+        <field name="model">device.monitor</field>
+        <field name="arch" type="xml">
+            <form string="Device Monitor">
+                <header>
+                    <button name="action_start" string="Start" type="object" class="oe_highlight" invisible="state == 'running'"/>
+                    <button name="action_stop" string="Stop" type="object" invisible="state != 'running'"/>
+                    <!-- <button name="test_business_logic_update" string="Test Business Logic" type="object" class="btn-secondary"/> -->
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="device_id"/>
+                            <field name="device_type"/>
+                            <field name="product_id"/>
+                            <field name="workcenter_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="last_update"/>
+                            <field name="last_value"/>
+                            <field name="register_values_display" widget="monospace" nolabel="1"/>
+                            <field name="error_message"/>
+                        </group>
+                        <group string="MRP Status">
+                            <field name="product_id" readonly="1"/>
+                            <field name="workcenter_id" readonly="1"/>
+                            <field name="state" widget="statusbar"/>
+                            <field name="error_message" widget="text" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Business Mappings">
+                            <field name="business_mapping_ids">
+                                <list editable="bottom">
+                                    <field name="plc_register"/>
+                                    <field name="business_model"/>
+                                    <field name="business_field"/>
+                                    <field name="update_condition"/>
+                                    <field name="threshold_value" invisible="update_condition != 'threshold'"/>
+                                    <field name="last_value"/>
+                                    <field name="active"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Raw Values">
+                            <field name="register_values" widget="json"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_device_monitor_search" model="ir.ui.view">
+        <field name="name">device.monitor.search</field>
+        <field name="model">device.monitor</field>
+        <field name="arch" type="xml">
+            <search string="Device Monitor">
+                <field name="name"/>
+                <field name="device_id"/>
+                <field name="device_type"/>
+                <separator/>
+                <filter string="Running" name="running" domain="[('state', '=', 'running')]"/>
+                <filter string="Stopped" name="stopped" domain="[('state', '=', 'stopped')]"/>
+                <filter string="Error" name="error" domain="[('state', '=', 'error')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Device Type" name="group_by_type" context="{'group_by': 'device_type'}"/>
+                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_device_monitor" model="ir.actions.act_window">
+        <field name="name">Device Monitor</field>
+        <field name="res_model">device.monitor</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_device_monitor_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first device monitor
+            </p>
+            <p>
+                Configure PLC devices and map their data to Odoo business fields.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_device_monitor"
+              name="Device Monitor"
+              action="action_device_monitor"
+              parent="mrp.menu_mrp_root"
+              sequence="100"/>
+</odoo> 
